@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.prose ul {
+  padding-left: 1.5em;
+}
+
+.prose ul > li {
+  position: relative;
+  margin-top: 0.2em ; 
+  margin-bottom: 0.1em ;  
+}
+
+.prose ul > li::before {
+  position: absolute;
+  left: -1.5em;
+  color: currentColor;
+}
+
+
+/* 테이블 스타일 추가 */
+.prose table {
+  @apply w-full border-collapse my-4;
+}
+
+.prose thead {
+  @apply bg-gray-100;
+}
+
+.prose th {
+  @apply font-bold text-left p-2 border border-gray-300;
+}
+
+.prose td {
+  @apply p-2 border border-gray-300;
+}
+
+.prose tr:nth-child(even) {
+  @apply bg-gray-50;
+}
+
+/* 코드 블록 스타일 */
+pre[class*="language-"] {
+  @apply bg-gray-800 text-white p-4 rounded-md overflow-x-auto my-4;
+}
+
+code[class*="language-"] {
+  @apply text-sm font-mono;
+}
+
+/* 인라인 코드 스타일 */
+:not(pre) > code[class*="language-"] {
+  @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded;
+}
