@@ -1,7 +1,7 @@
 ---
 title: 마크다운 테스트
 subtitle: 게시물 부제목
-date: '2024-08-25'
+date: '2023-08-25'
 category: markdown
 ---
 

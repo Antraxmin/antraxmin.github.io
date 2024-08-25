@@ -8,6 +8,7 @@ import Link from 'next/link';
 import prism from 'remark-prism';
 import Prism from 'prismjs';
 import gfm from 'remark-gfm';
+import TableOfContents from '@/components/TableOfContents';
 
 export default function Post({ postData }) {
     useEffect(() => {
@@ -20,6 +21,7 @@ export default function Post({ postData }) {
         <p className="text-gray-500 hover:underline mb-4 inline-block text-sm">&larr; Back to posts</p>
       </Link>
       <h1 className="text-2xl font-bold mb-2">{postData.title}</h1>
+      {/* <TableOfContents content={postData.content} /> */}
       <div className="text-gray-600 mb-4 text-xs">
         <span>{postData.date}</span> • <span>{postData.category}</span>
       </div>
