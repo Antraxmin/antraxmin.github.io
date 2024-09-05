@@ -1,13 +1,22 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const TableOfContents = ({ content }) => {
-  const [toc, setToc] = useState([]);
+interface TocItem {
+  level: number;
+  text: string;
+  slug: string;
+}
+
+interface TableOfContentsProps {
+  content: string;
+}
+
+const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
+  const [toc, setToc] = useState<TocItem[]>([]);
 
   useEffect(() => {
     const headings = (content || "").match(/(#{1,6})\s+(.+)/g) || [];
     const tocItems = headings.map((heading) => {
-      const level = heading.match(/#{1,6}/)[0].length;
+      const level = heading.match(/#{1,6}/)?.[0].length || 0;
       const text = heading.replace(/#{1,6}\s+/, '');
       const slug = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
       return { level, text, slug };

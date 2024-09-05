@@ -8,12 +8,25 @@ import Link from 'next/link';
 import prism from 'remark-prism';
 import Prism from 'prismjs';
 import gfm from 'remark-gfm';
-import TableOfContents from '@/components/TableOfContents';
+import { GetStaticProps, GetStaticPaths } from 'next';
 
-export default function Post({ postData }) {
-    useEffect(() => {
-        Prism.highlightAll();
-      }, []);
+interface PostData {
+  id: string;
+  title: string;
+  date: string;
+  category: string;
+  content: string;
+  contentHtml: string;
+}
+
+interface PostProps {
+  postData: PostData;
+}
+
+export default function Post({ postData }: PostProps): JSX.Element {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
 
   return (
     <div className="max-w-2xl mx-auto bg-white">
@@ -30,7 +43,7 @@ export default function Post({ postData }) {
   );
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
 
@@ -39,11 +52,11 @@ export async function getStaticPaths() {
   }));
 
   return { paths, fallback: false };
-}
+};
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps<PostProps> = async ({ params }) => {
   const postsDirectory = path.join(process.cwd(), 'posts');
-  const fullPath = path.join(postsDirectory, `${params.id}.md`);
+  const fullPath = path.join(postsDirectory, `${params?.id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
   const matterResult = matter(fileContents);
@@ -58,10 +71,11 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       postData: {
-        id: params.id,
+        id: params?.id as string,
         contentHtml,
-        ...matterResult.data,
+        content: matterResult.content,
+        ...(matterResult.data as Omit<PostData, 'id' | 'contentHtml' | 'content'>),
       },
     },
   };
-}
+};

@@ -3,9 +3,23 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
+import { GetStaticProps } from 'next';
 
-export default function BlogWithMarkdown({ posts }) {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+interface Post {
+  id: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  category: string;
+  content: string;
+}
+
+interface BlogWithMarkdownProps {
+  posts: Post[];
+}
+
+export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.Element {
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   const categories = ['All', ...new Set(posts.map(post => post.category))];
 
@@ -34,15 +48,15 @@ export default function BlogWithMarkdown({ posts }) {
       <div className="space-y-0">
         {filteredPosts.map(post => (
           <Link href={`/posts/${post.id}`} key={post.id}>
-          <div key={post.id} className="border-gray-200 pb-3">
-            <div className="flex justify-between items-start">
-              <div>
-                <h2 className="text-md font-semibold text-gray-800">{post.title}</h2>
-                {/* <p className="text-sm text-gray-600 mt-1">{post.subtitle}</p> */}
+            <div className="border-gray-200 pb-3">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h2 className="text-md font-semibold text-gray-800">{post.title}</h2>
+                  {/* <p className="text-sm text-gray-600 mt-1">{post.subtitle}</p> */}
+                </div>
+                <span className="text-xs text-gray-500">{post.date}</span>
               </div>
-              <span className="text-xs text-gray-500">{post.date}</span>
             </div>
-          </div>
           </Link>
         ))}
       </div>
@@ -50,11 +64,11 @@ export default function BlogWithMarkdown({ posts }) {
   );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps<BlogWithMarkdownProps> = async () => {
   const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
 
-  const posts = filenames.map((filename) => {
+  const posts = filenames.map((filename): Post => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
@@ -83,4 +97,4 @@ export async function getStaticProps() {
       posts: sortedPosts,
     },
   };
-}
+};
