@@ -29,9 +29,24 @@ module.exports = {
               fontWeight: '500',
               border: `1px solid ${theme('colors.purple.500')}`,
             },
+            'ul': {
+              listStyleType: 'none', 
+            },
             'ul > li': {
               marginTop: '0.25em',
               marginBottom: '0.25em',
+              marginLeft: '0.75em',
+              paddingLeft: '0em', 
+            },
+            'ul > li::before': {
+              content: '""',
+              position: 'absolute',
+              backgroundColor: '#000',
+              borderRadius: '50%',
+              width: '0.375em',
+              height: '0.375em',
+              top: 'calc(0.875em - 0.1875em)',
+              left: '0.25em',
             },
             'ul > li > ul': {
               marginTop: '0.25em',
