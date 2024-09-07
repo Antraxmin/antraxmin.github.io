@@ -15,6 +15,20 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            'h2': {
+              position: 'relative',
+              paddingBottom: '0.2em',
+              marginBottom: '1em',
+            },
+            'h2::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: '0',
+              left: '0',
+              right: '0',
+              height: '1px',
+              backgroundColor: theme('colors.gray.400'),
+            },
             'code::before': {
               content: '""',
             },
