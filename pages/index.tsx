@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
+import Image from 'next/image';
 import { GetStaticProps } from 'next';
 
 interface Post {
   id: string;
   title: string;
-  subtitle: string;
   date: string;
   category: string;
-  content: string;
+  thumbnail: string; 
 }
 
 interface BlogWithMarkdownProps {
@@ -21,49 +21,50 @@ interface BlogWithMarkdownProps {
 export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.Element {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const categories = ['All', ...new Set(posts.map(post => post.category))];
+  const categories = useMemo(() => ['All', ...new Set(posts.map(post => post.category))], [posts]);
 
-  const filteredPosts = selectedCategory === 'All'
-    ? posts
-    : posts.filter(post => post.category === selectedCategory);
+  const filteredPosts = useMemo(() =>
+    selectedCategory === 'All' ? posts : posts.filter(post => post.category === selectedCategory),
+    [selectedCategory, posts]
+  );
 
   return (
-    <div className="max-w-3xl mx-auto bg-white">
-      <div className="flex flex-wrap gap-3 mb-6">
+    <div className="max-w-3xl mx-auto">
+      <nav className="mb-8">
         {categories.map(category => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-3 py-1 text-sm transition-colors duration-200 ${
+            className={`mr-4 mb-2 text-sm font-medium ${
               selectedCategory === category
-                ? 'bg-gray-800 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            } rounded`}
+                ? 'text-blue-800 border-b-2 border-blue-600'
+                : 'text-gray-600 hover:text-blue-600'
+            }`}
           >
             {category}
           </button>
         ))}
-      </div>
-      
-      <div className="space-y-0">
+      </nav>
+
+      <main>
         {filteredPosts.map(post => (
-          <Link href={`/posts/${post.id}`} key={post.id}>
-            <div className="border-gray-200 pb-3">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h2 className="text-md font-semibold text-gray-800">{post.title}</h2>
-                  {/* <p className="text-sm text-gray-600 mt-1">{post.subtitle}</p> */}
+          <Link key={post.id} href={`/posts/${post.id}`}>
+            <article className="flex items-center pb-6 border-b border-gray-200 last:border-b-0">
+              <div>
+                <h2 className="md:text-lg font-semibold text-gray-900 hover:text-blue-800 transition-colors duration-200 mb-2">
+                  {post.title}
+                </h2>
+                <div className="flex items-center text-xs text-gray-500">
+                  {post.date}
                 </div>
-                <span className="text-xs text-gray-500">{post.date}</span>
               </div>
-            </div>
+            </article>
           </Link>
         ))}
-      </div>
+      </main>
     </div>
   );
 }
-
 export const getStaticProps: GetStaticProps<BlogWithMarkdownProps> = async () => {
   const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
@@ -71,26 +72,18 @@ export const getStaticProps: GetStaticProps<BlogWithMarkdownProps> = async () =>
   const posts = filenames.map((filename): Post => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data, content } = matter(fileContents);
+    const { data } = matter(fileContents);
 
     return {
       id: filename.replace(/\.md$/, ''),
       title: data.title,
-      subtitle: data.subtitle || '',
       date: data.date,
       category: data.category,
-      content: content
+      thumbnail: data.thumbnail 
     };
   });
 
-  // 날짜순으로 게시물 정렬
-  const sortedPosts = posts.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
+  const sortedPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return {
     props: {

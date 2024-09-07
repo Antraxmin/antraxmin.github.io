@@ -1,8 +1,9 @@
 ---
-title: "[Java] 자바 프로그램 개발환경 구축"
+title: "자바 프로그램 개발환경 구축"
 subtitle: 자바 프로그램 개발환경 구축
 date: '2024-08-30'
 category: Java
+thumbnail: "https://github.com/user-attachments/assets/5f1273a2-47a0-4995-bb2c-22b2d9ab3f4a"
 ---
 
 ## 개요

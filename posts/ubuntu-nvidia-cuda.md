@@ -1,8 +1,9 @@
 ---
-title: "[Ubuntu] Nvidia 드라이버 및 CUDA 설치"
+title: "Nvidia 드라이버 및 CUDA 설치"
 subtitle: 게시물 부제목
 date: '2024-09-01'
 category: Infra
+thumbnail: "https://github.com/user-attachments/assets/a725c32e-3b1b-4f46-9824-8b25904cec16"
 ---
 
 #### 사용 가능한 드라이버 확인 
