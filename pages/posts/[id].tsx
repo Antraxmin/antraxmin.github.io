@@ -29,7 +29,7 @@ export default function Post({ postData }: PostProps): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto bg-white">
+    <div className="max-w-3xl mx-auto bg-white">
       <Link href="/">
         <p className="text-gray-500 hover:underline mb-4 inline-block text-sm">&larr; Back to posts</p>
       </Link>

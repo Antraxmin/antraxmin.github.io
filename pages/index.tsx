@@ -28,7 +28,7 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
     : posts.filter(post => post.category === selectedCategory);
 
   return (
-    <div className="max-w-2xl mx-auto bg-white">
+    <div className="max-w-3xl mx-auto bg-white">
       <div className="flex flex-wrap gap-3 mb-6">
         {categories.map(category => (
           <button

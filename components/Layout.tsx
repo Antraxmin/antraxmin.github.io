@@ -13,7 +13,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white">
+    <div className="max-w-3xl mx-auto p-6 bg-white">
       <header className="flex justify-between items-center mb-6">
         <Link href="/">
           <p className="text-2xl font-bold text-gray-800">Antraxmin</p>
