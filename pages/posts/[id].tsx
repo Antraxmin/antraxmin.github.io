@@ -13,6 +13,7 @@ import slugify from 'slugify';
 import { Node } from 'unist';
 import { Parent } from 'unist';
 import { Heading } from 'mdast';
+import Giscus from '../../components/Giscus';
 
 interface TOCItem {
   level: number;
@@ -113,6 +114,9 @@ export default function Post({ postData }: PostProps): JSX.Element {
       </div>
       <TableOfContents content={postData.content} />
       <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <div className="mt-8">
+        <Giscus />
+      </div>
     </div>
   );
 }
