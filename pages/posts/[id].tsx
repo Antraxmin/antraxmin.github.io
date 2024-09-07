@@ -9,6 +9,16 @@ import prism from 'remark-prism';
 import Prism from 'prismjs';
 import gfm from 'remark-gfm';
 import { GetStaticProps, GetStaticPaths } from 'next';
+import slugify from 'slugify';
+import { Node } from 'unist';
+import { Parent } from 'unist';
+import { Heading } from 'mdast';
+
+interface TOCItem {
+  level: number;
+  content: string;
+  id: string;
+}
 
 interface PostData {
   id: string;
@@ -23,6 +33,70 @@ interface PostProps {
   postData: PostData;
 }
 
+const TableOfContents: React.FC<{ content: string }> = ({ content }) => {
+  const parseMarkdown = (text: string): TOCItem[] => {
+    if (!text) return [];
+    
+    const lines = text.split('\n');
+    const toc: TOCItem[] = [];
+
+    lines.forEach(line => {
+      if (line.startsWith('#')) {
+        const level = line.split(' ')[0].length;
+        const content = line.substring(level + 1).trim();
+        const id = slugify(content, { lower: true, strict: true });
+
+        toc.push({ level, content, id });
+      }
+    });
+
+    return toc;
+  };
+
+  const renderTOCItem = (item: TOCItem) => {
+    const indent = (item.level - 2) * 1.2;
+    
+    return (
+      <li
+        key={item.id}
+        style={{
+          marginLeft: `${indent}rem`,
+          fontSize: `0.9rem`,
+          marginBottom: '0.2rem'
+        }}
+      >
+        <a
+          href={`#${item.id}`}
+          className="underline"
+          onClick={(e) => {
+            e.preventDefault();
+            const element = document.getElementById(item.id);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+        >
+          {item.content}
+        </a>
+      </li>
+    );
+  };
+
+  const tocItems = parseMarkdown(content);
+
+  if (tocItems.length === 0) {
+    return null;
+  }
+
+  return (
+    <nav className="bg-gray-100 p-4 rounded-lg mb-6">
+      <ul className="list-none pl-0">
+        {tocItems.map(renderTOCItem)}
+      </ul>
+    </nav>
+  );
+};
+
 export default function Post({ postData }: PostProps): JSX.Element {
   useEffect(() => {
     Prism.highlightAll();
@@ -34,10 +108,10 @@ export default function Post({ postData }: PostProps): JSX.Element {
         <p className="text-gray-500 hover:underline mb-4 inline-block text-sm">&larr; Back to posts</p>
       </Link>
       <h1 className="text-2xl font-bold mb-2">{postData.title}</h1>
-      {/* <TableOfContents content={postData.content} /> */}
       <div className="text-gray-600 mb-4 text-xs">
         <span>{postData.date}</span> • <span>{postData.category}</span>
       </div>
+      <TableOfContents content={postData.content} />
       <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
     </div>
   );
@@ -63,6 +137,24 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({ params }) => {
 
   const processedContent = await remark()
     .use(gfm)
+    .use(() => (tree: Node) => {
+      const visit = (node: Node) => {
+        if (node.type === 'heading') {
+          const headingNode = node as Heading;
+          const headingContent = (headingNode.children as Array<{ value: string }>)
+            .map(child => child.value)
+            .join('');
+          const id = slugify(headingContent, { lower: true, strict: true });
+          headingNode.data = headingNode.data || {};
+          headingNode.data.hProperties = headingNode.data.hProperties || {};
+          headingNode.data.hProperties.id = id;
+        }
+        if ('children' in node) {
+          (node as Parent).children.forEach(visit);
+        }
+      };
+      visit(tree);
+    })
     .use(html, { sanitize: false })
     .use(prism)
     .process(matterResult.content);
