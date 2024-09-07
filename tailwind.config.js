@@ -36,12 +36,12 @@ module.exports = {
               content: '""',
             },
             code: {
-              color: '#4B1F42',
-              backgroundColor: '#ECE5F1',
+              color: '#444444',
+              backgroundColor: '#eeeeee',
               padding: '0.2rem 0.4rem',
               borderRadius: '0.25rem',
               fontWeight: '500',
-              border: `1px solid ${theme('colors.purple.500')}`,
+              border: `1px solid ${theme('colors.gray.500')}`,
             },
             'ul': {
               listStyleType: 'none', 
