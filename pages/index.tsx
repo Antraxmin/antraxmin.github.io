@@ -49,14 +49,14 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
       <main>
         {filteredPosts.map(post => (
           <Link key={post.id} href={`/posts/${post.id}`}>
-            <article className="flex items-center pb-6 border-b border-gray-200 last:border-b-0">
-              <div>
-                <h2 className="md:text-lg font-semibold text-gray-900 hover:text-blue-800 transition-colors duration-200 mb-2">
+            <article className="flex items-center pb-2 border-b border-gray-200 last:border-b-0">
+              <div className='flex flex-row'>
+                <h2 className="text-sm font-semibold text-gray-900 hover:text-blue-800 transition-colors duration-200 mb-1">
                   {post.title}
                 </h2>
-                <div className="flex items-center text-xs text-gray-500">
+                {/* <div className="flex items-center text-xs text-gray-500">
                   {post.date}
-                </div>
+                </div> */}
               </div>
             </article>
           </Link>

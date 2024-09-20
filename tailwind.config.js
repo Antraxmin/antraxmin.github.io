@@ -15,6 +15,9 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            'p': {
+              lineHeight: '1.6rem'
+            },
             'h2': {
               position: 'relative',
               paddingBottom: '0.2em',
@@ -44,13 +47,15 @@ module.exports = {
               border: `1px solid ${theme('colors.gray.500')}`,
             },
             'ul': {
-              listStyleType: 'none', 
+              listStyleType: 'none',
+              
             },
             'ul > li': {
               marginTop: '0.25em',
               marginBottom: '0.25em',
               marginLeft: '0.75em',
               paddingLeft: '0em', 
+              lineHeight: '1.5rem'
             },
             'ul > li::before': {
               content: '""',
