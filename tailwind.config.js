@@ -44,6 +44,7 @@ module.exports = {
               padding: '0.2rem 0.4rem',
               borderRadius: '0.25rem',
               fontWeight: '500',
+              fontSize: '0.75rem !important',
               border: `1px solid ${theme('colors.gray.500')}`,
             },
             'ul': {
