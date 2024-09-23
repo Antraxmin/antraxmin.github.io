@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -14,6 +14,7 @@ import { Node } from 'unist';
 import { Parent } from 'unist';
 import { Heading } from 'mdast';
 import Giscus from '../../components/Giscus';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface TOCItem {
   level: number;
@@ -35,6 +36,8 @@ interface PostProps {
 }
 
 const TableOfContents: React.FC<{ content: string }> = ({ content }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const parseMarkdown = (text: string): TOCItem[] => {
     if (!text) return [];
     
@@ -91,9 +94,18 @@ const TableOfContents: React.FC<{ content: string }> = ({ content }) => {
 
   return (
     <nav className="bg-gray-100 p-4 rounded-lg mb-6">
-      <ul className="list-none pl-0">
-        {tocItems.map(renderTOCItem)}
-      </ul>
+      <div 
+        className="flex justify-between items-center cursor-pointer" 
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <h2 className="text-lg font-bold">목차</h2>
+        {isOpen ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+      </div>
+      {isOpen && (
+        <ul className="list-none pl-0">
+          {tocItems.map(renderTOCItem)}
+        </ul>
+      )}
     </nav>
   );
 };
