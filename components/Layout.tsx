@@ -13,14 +13,14 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white">
-      <header className="flex justify-between items-center mb-6">
+    <div className="max-w-3xl mx-auto p-6 ">
+      <header className="flex justify-between items-center">
         <Link href="/">
-          <p className="text-2xl font-bold text-gray-800">Antraxmin</p>
+          <p className="text-xl md:text-2xl font-bold text-gray-800 ">&lt;Antraxmin /&gt;</p>
         </Link>
-        <Link href="https://github.com/Antraxmin" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 transition-colors">
+        {/* <Link href="https://github.com/Antraxmin" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-500 transition-colors">
           <GithubIcon />
-        </Link>
+        </Link> */}
       </header>
       <main>{children}</main>
     </div>

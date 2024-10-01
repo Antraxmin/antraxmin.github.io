@@ -3,7 +3,7 @@ title: JSX와 가상 DOM의 작동 원리
 subtitle: 게시물 부제목
 date: '2024-01-27'
 category: React
-thumbnail: "/images/post-thumbnail.jpg"
+thumbnail: "https://github.com/user-attachments/assets/ac54f719-b93e-44e7-b3aa-32bef0ab6854"
 ---
 
 ## JSX란?
