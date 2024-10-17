@@ -22,50 +22,66 @@ interface BlogWithMarkdownProps {
 }
 
 
-
 export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.Element {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const categories = useMemo(() => {
+    return Array.from(new Set(posts.map(post => post.category)));
+  }, [posts]);
+
+  const filteredPosts = useMemo(() => {
+    return selectedCategory
+      ? posts.filter(post => post.category === selectedCategory)
+      : posts;
+  }, [posts, selectedCategory]);
+
   return (
     <div className="min-h-screen bg-white text-gray-800">
       <div className="max-w-3xl mx-auto">
         <Profile />
+        <div className="mt-8 mb-4">
+          <div className="flex space-x-2 overflow-x-auto">
+            <button
+              className={`px-2 py-0.5 text-xs rounded-full ${
+                selectedCategory === null ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+              }`}
+              onClick={() => setSelectedCategory(null)}
+            >
+              All
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category}
+                className={`px-2 py-0.5 text-xs rounded-full ${
+                  selectedCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+                }`}
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
         <main>
-          {posts.map((post, index) => (
-            <React.Fragment key={post.id}>
-              <Link href={`/posts/${post.id}`}>
-                <article className="py-4 group flex items-center">
-                  <div className="flex-shrink-0 mr-4">
-                    <Image
-                      src={post.thumbnail}
-                      alt={post.title}
-                      width={120}
-                      height={80}
-                      className="rounded-md object-cover"
-                    />
+          {filteredPosts.map((post) => (
+            <Link href={`/posts/${post.id}`} key={post.id}>
+              <article className="py-2 group flex items-center">
+                <div className="flex-grow">
+                  <h2 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                    {post.title}
+                  </h2>
+                  <div className="flex items-center text-xs text-gray-500 mt-0.5">
+                    <span>{post.date}</span>
+                    {/* <span className="mx-2">·</span> */}
+                    {/* <span>{post.category}</span> */}
                   </div>
-                  <div className="flex-grow">
-                    <h2 className="text-base font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
-                      {post.title}
-                    </h2>
-                    <div className="flex items-center text-xs text-gray-500 mt-1 space-x-2">
-                      <div className="flex items-center">
-                        <Calendar size={12} className="mr-1 text-gray-400" />
-                        <span>{post.date}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded-md ml-2 text-xs">
-                          {post.category}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              </Link>
-              {/* {index < posts.length - 1 && <hr className="border-gray-200" />} */}
-            </React.Fragment>
+                </div>
+              </article>
+            </Link>
           ))}
         </main>
       </div>
+    </div>
   );
 }
 
