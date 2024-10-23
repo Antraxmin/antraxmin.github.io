@@ -38,7 +38,7 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
   return (
     <div className="min-h-screen bg-white text-gray-800">
       <div className="max-w-3xl mx-auto">
-        <Profile />
+        {/* <Profile /> */}
         <div className="mt-8 mb-4">
           <div className="flex space-x-2 overflow-x-auto">
             <button
