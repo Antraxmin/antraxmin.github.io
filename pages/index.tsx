@@ -3,9 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
-import Image from 'next/image';
 import { GetStaticProps } from 'next';
-import { Calendar, Clock, GithubIcon, Mail, Tag, Twitter } from 'lucide-react';
 import Profile from '../components/Profile';
 
 interface Post {
@@ -38,8 +36,8 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
   return (
     <div className="min-h-screen bg-white text-gray-800">
       <div className="max-w-3xl mx-auto">
-        {/* <Profile /> */}
-        <div className="mt-8 mb-4">
+        <Profile />
+        {/* <div className="mt-8 mb-4">
           <div className="flex space-x-2 overflow-x-auto">
             <button
               className={`px-2 py-0.5 text-xs rounded-full ${
@@ -61,7 +59,7 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
         <main>
           {filteredPosts.map((post) => (
             <Link href={`/posts/${post.id}`} key={post.id}>
@@ -84,10 +82,6 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
     </div>
   );
 }
-
-
-
-
 
 export const getStaticProps: GetStaticProps<BlogWithMarkdownProps> = async () => {
   const postsDirectory = path.join(process.cwd(), 'posts');
