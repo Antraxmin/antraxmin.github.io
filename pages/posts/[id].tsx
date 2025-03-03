@@ -125,7 +125,7 @@ export default function Post({ postData }: PostProps): JSX.Element {
         <span>{postData.date}</span> • <span>{postData.category}</span>
       </div>
       <TableOfContents content={postData.content} />
-      <div className="prose max-w-none text-sm md:text-md" dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <div className="prose max-w-none text-md" dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       <div className="mt-8">
         <Giscus />
       </div>
