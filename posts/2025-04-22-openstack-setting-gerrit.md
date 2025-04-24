@@ -3,7 +3,7 @@ title: "OpenStack 개발 환경 구축 - 3. Gerrit 계정 생성 및 커밋 환�
 subtitle: "."
 date: '2025-04-22'
 category: OSSCA
-thumbnail: "https://github.com/user-attachments/assets/0eb8b922-be58-4fb0-a068-a49d72465c6c"
+thumbnail: "https://velog.velcdn.com/images/antraxmin/post/6ce3ba7f-fe1c-4307-a431-66a405363c96/image.png"
 ---
 
 ## Gerrit이란?

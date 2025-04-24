@@ -3,7 +3,7 @@ title: "OpenStack 개발 환경 구축 - 1. DevStack 설치"
 subtitle: "."
 date: '2025-04-21'
 category: OSSCA
-thumbnail: "https://github.com/user-attachments/assets/0eb8b922-be58-4fb0-a068-a49d72465c6c"
+thumbnail: "https://velog.velcdn.com/images/antraxmin/post/2b6ba8cb-2e9e-4327-b9cd-45cdc2d2507e/image.png"
 ---
 
 첫 주차부터 바로 코드 분석을 위한 개발환경 세팅을 과제로 내주셨다. 학습 자료는 devstack 설치부터 작성되어 있었다. OpenStack 트랙에는 현업 클라우드/DevOps 엔지니어 비율이 상당하기 때문에 리눅스 서버 세팅 등의 기본적인 지식은 이미 알고 있다고 가정하고 진행하는 것 같았다. (오히려 좋아)

@@ -3,7 +3,7 @@ title: "OpenStack 개발 환경 구축 - 2. pycharm 설정"
 subtitle: "."
 date: '2025-04-22'
 category: OSSCA
-thumbnail: "https://github.com/user-attachments/assets/0eb8b922-be58-4fb0-a068-a49d72465c6c"
+thumbnail: "https://velog.velcdn.com/images/antraxmin/post/db7ce016-a013-490b-b70a-3a25817fa1df/image.png"
 ---
 
 vscode와 pycharm 모두 사용할 수 있지만 개인적으로는 비교도 안될만큼 pycharm이 훨씬 강력하다고 느껴서 pycharm으로 진행하고자 했다.
