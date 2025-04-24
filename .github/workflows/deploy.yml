@@ -2,14 +2,13 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main]  
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -26,9 +25,9 @@ jobs:
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
 
-      - name: Deploy 🚀
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
-          folder: out
-          token: ${{ secrets.DEPLOY_TOKEN }}  
+          branch: gh-pages  
+          folder: out  
+          token: ${{ secrets.GITHUB_TOKEN }}  
