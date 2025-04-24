@@ -27,6 +27,16 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
     return Array.from(new Set(posts.map(post => post.category)));
   }, [posts]);
 
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    posts.forEach(post => {
+      if (post.category) {
+        counts[post.category] = (counts[post.category] || 0) + 1;
+      }
+    });
+    return counts;
+  }, [posts]);
+
   const filteredPosts = useMemo(() => {
     return selectedCategory
       ? posts.filter(post => post.category === selectedCategory)
@@ -55,7 +65,7 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
                 }`}
                 onClick={() => setSelectedCategory(category)}
               >
-                {category}
+                {category} ({categoryCounts[category] || 0})
               </button>
             ))}
           </div>
