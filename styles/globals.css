@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @import url('//fonts.googleapis.com/earlyaccess/notosanskr.css');
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+} */
+
 .prose ul {
   padding-left: 1.5em;
 }
