@@ -94,7 +94,7 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
                   </div>
                   
                   <div className="flex-grow">
-                    <h2 className="text-base md:text-[20px] font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+                    <h2 className="text-base md:text-[20px] font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
                       {post.title}
                     </h2>
                     <div className="flex items-center text-xs md:text-sm text-gray-500 mt-2">
