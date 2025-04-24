@@ -18,7 +18,7 @@ export default function Profile() {
         <div className="flex-grow">
           <h1 className="text-lg sm:text-xl font-bold mb-2">Chaemin Lim</h1>
           <p className="text-sm text-gray-600 leading-snug mb-3">
-            복잡한 문제를 해결하는 것을 즐기는 개발자 임채민입니다.
+            Software Engineer
           </p>
           <div className="flex space-x-3">
             <Link href="https://github.com/Antraxmin" className="text-gray-500 hover:text-gray-900 transition-colors" target='_blank'>

@@ -37,10 +37,10 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
     <div className="min-h-screen bg-white text-gray-800">
       <div className="max-w-3xl mx-auto">
         <Profile />
-        {/* <div className="mt-8 mb-4">
+        <div className="mt-8 mb-4">
           <div className="flex space-x-2 overflow-x-auto">
             <button
-              className={`px-2 py-0.5 text-xs rounded-full ${
+              className={`px-3 py-1 text-xs rounded-full ${
                 selectedCategory === null ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
               }`}
               onClick={() => setSelectedCategory(null)}
@@ -50,7 +50,7 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
             {categories.map((category) => (
               <button
                 key={category}
-                className={`px-2 py-0.5 text-xs rounded-full ${
+                className={`px-3 py-1 text-xs rounded-full ${
                   selectedCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
                 }`}
                 onClick={() => setSelectedCategory(category)}
@@ -59,16 +59,16 @@ export default function BlogWithMarkdown({ posts }: BlogWithMarkdownProps): JSX.
               </button>
             ))}
           </div>
-        </div> */}
+        </div>
         <main>
           {filteredPosts.map((post) => (
             <Link href={`/posts/${post.id}`} key={post.id}>
-              <article className="py-2 group flex items-center">
+              <article className="py-4 group flex items-center">
                 <div className="flex-grow">
-                  <h2 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                  <h2 className="text-sm md:text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
                     {post.title}
                   </h2>
-                  <div className="flex items-center text-xs text-gray-500 mt-0.5">
+                  <div className="flex items-center text-xs md:text-sm text-gray-500 mt-0.5">
                     <span>{post.date}</span>
                     {/* <span className="mx-2">·</span> */}
                     {/* <span>{post.category}</span> */}
